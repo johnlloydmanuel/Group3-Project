@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $dbusername = "root";
-$dbpassword = "";
+$dbpassword = ""; 
 $database = "dbcapstones";
 
 try{	
