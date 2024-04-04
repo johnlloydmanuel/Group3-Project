@@ -2,7 +2,6 @@
 include('dbconn.php');
 
 
-
 // Fetch capstone data based on the edit ID
 $stmt = $conn->prepare("SELECT * FROM tblcapstone WHERE id=:edit_id");
 $stmt->bindParam(':edit_id', $edit_id);

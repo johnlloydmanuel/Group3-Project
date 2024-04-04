@@ -49,7 +49,7 @@ include('delete.php');
                 <div class="row mt-5">
                     <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
-                            <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')" style="width: 100%; height: 100%;" >
+                            <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
@@ -60,7 +60,10 @@ include('delete.php');
                                     <label for="abstract" class="font-weight-bold">Abstract</label>
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
                                     <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
-                                      <button type="button" class="btn btn-dark edit-btn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<?php echo $capstone['id']; ?>" onclick="stopPropagation(event)">Edit</button>
+                                    <button  type="button" class="btn btn-dark edit-btn" onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">
+                                        Edit
+                                    </button>
+
                                       <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
                                   </div>
                                 </div>
@@ -79,10 +82,10 @@ include('delete.php');
                 <h5 class="modal-title">Edit Capstone</h5>
                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
             </div>
-            <form id="editForm" method="POST" action="edit.php"> <!-- Ensure action points to edit_capstone.php -->
+            <form id="editForm" method="POST" action="edit.php"> 
                 <div class="modal-body">
                 <input type="hidden" name="action" value="edit">
-                    <input type="hidden" name="edit_id" id="edit_id_modal">
+                <input type="hidden" name="edit_id" id="edit_id_modal" value="">
                     <div class="form-group">
                         <label for="title_modal">Title:</label>
                         <input type="text" class="form-control" id="title_modal" name="title" value="<?php echo isset($capstone['title']) ? $capstone['title'] : ''; ?>" required>
@@ -100,10 +103,12 @@ include('delete.php');
                         <textarea class="form-control" id="abstract_modal" name="abstract" rows="4" required><?php echo isset($capstone['abstract']) ? $capstone['abstract'] : ''; ?></textarea>
                     </div>
                 </div>
-                <div class="modal-footer">
+                                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
                 </div>
+
+
             </form>
         </div>
     </div>
@@ -143,16 +148,35 @@ include('delete.php');
 
 </body>
 <script>
-    // JavaScript to set the edit_id_modal input field in the modal
+
+  function propa(event){
+    event.stopPropagation();
+  }
+
+  function openEditModal(editId, title, author, datePublished, abstract) {
+    propa(event);
     var editModal = document.getElementById('editModal');
-    editModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var editId = button.getAttribute('data-bs-id');
-        var editIdModal = editModal.querySelector('#edit_id_modal');
-        editIdModal.value = editId;
-    });
+    var titleInput = editModal.querySelector('#title_modal');
+    var authorInput = editModal.querySelector('#author_modal');
+    var datePubInput = editModal.querySelector('#date_pub_modal');
+    var abstractInput = editModal.querySelector('#abstract_modal');
+    var editIdInput = editModal.querySelector('#edit_id_modal');
+
+    titleInput.value = title;
+    authorInput.value = author;
+    datePubInput.value = datePublished;
+    abstractInput.value = abstract;
+    editIdInput.value = editId;
+
+    var bsModal = new bootstrap.Modal(editModal);
+    bsModal.show();
+}
+
+
+
 
     function openViewModal(title, author, date_published, abstract) {
+  
         var viewModal = document.getElementById('viewModal');
         var viewTitle = viewModal.querySelector('#view_title');
         var viewAuthor = viewModal.querySelector('#view_author');
@@ -167,8 +191,7 @@ include('delete.php');
         var bsModal = new bootstrap.Modal(viewModal);
         bsModal.show();
     }
-    function stopPropagation(event) {
-        event.stopPropagation();
-    }
+
+
 </script>
 </html>
