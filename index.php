@@ -49,7 +49,7 @@ include('delete.php');
                 <div class="row mt-5">
                     <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
-                            <div class="card" style="width: 100%; height: 100%;">
+                            <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
@@ -60,7 +60,7 @@ include('delete.php');
                                     <label for="abstract" class="font-weight-bold">Abstract</label>
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
                                     <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
-                                      <button type="button" class="btn btn-dark edit-btn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<?php echo $capstone['id']; ?>">Edit</button>
+                                      <button type="button" class="btn btn-dark edit-btn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<?php echo $capstone['id']; ?>" onclick="stopPropagation(event)">Edit</button>
                                       <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
                                   </div>
                                 </div>
@@ -73,7 +73,7 @@ include('delete.php');
     </div>
 <!-- Modal for Editing -->
 <div class="modal fade" id="editModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Capstone</h5>
@@ -108,6 +108,39 @@ include('delete.php');
         </div>
     </div>
 </div>
+
+<!-- View Modal -->
+<div class="modal fade" id="viewModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Capstone</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <label for="view_title">Title</label>
+                            <p id="view_title" class="font-weight-bold"></p>
+                            <label for="view_author">Author</label>
+                            <p id="view_author" class="font-weight-bold"></p>
+                            <label for="view_date_published">Date published</label>
+                            <p id="view_date_published" class="font-weight-bold"></p>
+                            <label for="view_abstract">Abstract</label>
+                            <p id="view_abstract"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 <script>
     // JavaScript to set the edit_id_modal input field in the modal
@@ -118,5 +151,24 @@ include('delete.php');
         var editIdModal = editModal.querySelector('#edit_id_modal');
         editIdModal.value = editId;
     });
+
+    function openViewModal(title, author, date_published, abstract) {
+        var viewModal = document.getElementById('viewModal');
+        var viewTitle = viewModal.querySelector('#view_title');
+        var viewAuthor = viewModal.querySelector('#view_author');
+        var viewDatePublished = viewModal.querySelector('#view_date_published');
+        var viewAbstract = viewModal.querySelector('#view_abstract');
+
+        viewTitle.textContent = title;
+        viewAuthor.textContent = author;
+        viewDatePublished.textContent = date_published;
+        viewAbstract.textContent = abstract;
+
+        var bsModal = new bootstrap.Modal(viewModal);
+        bsModal.show();
+    }
+    function stopPropagation(event) {
+        event.stopPropagation();
+    }
 </script>
 </html>
