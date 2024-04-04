@@ -1,85 +1,11 @@
 <?php
 include('dbconn.php');
-
-// Fetch all capstones from the database
-$stmt = $conn->prepare("SELECT * FROM tblcapstone");
-$stmt->execute();
-$capstones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Edit capstone
-if(isset($_GET['edit'])) {
-    $edit_id = $_GET['edit'];
-    $stmt = $conn->prepare("SELECT * FROM tblcapstone WHERE id=:edit_id");
-    $stmt->bindParam(':edit_id', $edit_id);
-    $stmt->execute();
-    $capstone = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-// Submit form for adding new capstone
-if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'add') {
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $date_pub = $_POST['date_pub'];
-    $abstract = $_POST['abstract'];
-
-    $sql = "INSERT INTO tblcapstone (title, author, date_published, abstract) VALUES (:title, :author, :date_pub, :abstract)";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':title', $title);
-    $stmt->bindParam(':author', $author);
-    $stmt->bindParam(':date_pub', $date_pub);
-    $stmt->bindParam(':abstract', $abstract);
-
-    try {
-        $stmt->execute();
-        header("Location: index.php");
-        exit;
-    } catch(PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
-
-// Submit form for editing existing capstone
-if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'edit') {
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $date_pub = $_POST['date_pub'];
-    $abstract = $_POST['abstract'];
-    $id = $_POST['edit_id'];
-
-    $sql = "UPDATE tblcapstone SET title=:title, author=:author, date_published=:date_pub, abstract=:abstract WHERE id=:id";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':title', $title);
-    $stmt->bindParam(':author', $author);
-    $stmt->bindParam(':date_pub', $date_pub);
-    $stmt->bindParam(':abstract', $abstract);
-    $stmt->bindParam(':id', $id);
-
-    try {
-        $stmt->execute();
-        header("Location: index.php");
-        exit;
-    } catch(PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
-
-// Delete capstone
-if(isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $sql = "DELETE FROM tblcapstone WHERE id=:id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id);
-    try {
-        $stmt->execute();
-        header("Location: index.php");
-        exit;
-    } catch(PDOException $e) {
-        echo "Error deleting record: " . $e->getMessage();
-    }
-}
+include('get.php');
+include('add.php');
+include('edit.php');
+include('delete.php');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -94,9 +20,9 @@ if(isset($_GET['delete'])) {
 <body>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-4">Add here <!-- LEFT PART-->
-                <h1 class="mb-4">Capstone Management</h1>
+        <div class="row" style="height:100vh;">
+            <div class="col-sm-4" style="overflow-y:hidden;">Add here <!-- LEFT PART-->
+                <h1 class="mb-4">Submit New Capstone</h1>
                 <form method="POST">
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="edit_id" id="edit_id" value="">
@@ -116,21 +42,27 @@ if(isset($_GET['delete'])) {
                         <label for="abstract">Abstract:</label>
                         <textarea class="form-control" id="abstract" name="abstract" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                    <button type="submit" class="btn btn-dark" name="submit" style="float:right;">Add Capstone</button>
                 </form>
             </div>
-            <div class="col-6">Browse here <!-- EDIT VIEW PART -->
+            <div class="col-sm-8" style="overflow-y:auto;">Browse here <!-- EDIT VIEW PART -->
                 <div class="row mt-5">
                     <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
-                            <div class="card">
+                            <div class="card" style="width: 100%; height: 100%;">
                                 <div class="card-body">
+                                    <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
+                                    <label for="author" class="font-weight-bold">Author</label>
                                     <h6 class="card-subtitle mb-2 text-muted"><?php echo $capstone['author']; ?></h6>
+                                    <label for="date published" class="font-weight-bold">Date published</label>
                                     <p class="card-text"><?php echo $capstone['date_published']; ?></p>
-                                    <p class="card-text"><?php echo $capstone['abstract']; ?></p>
-                                    <button type="button" class="btn btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $capstone['id']; ?>">Edit</button> <!--DIKO MAPAGANA-->
-                                    <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-danger">Delete</a>
+                                    <label for="abstract" class="font-weight-bold">Abstract</label>
+                                    <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
+                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
+                                      <button type="button" class="btn btn-dark edit-btn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<?php echo $capstone['id']; ?>">Edit</button>
+                                      <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -141,74 +73,50 @@ if(isset($_GET['delete'])) {
     </div>
 <!-- Modal for Editing -->
 <div class="modal fade" id="editModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Capstone</h5>
-        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-      </div>
-      <form id="editForm" method="POST">
-        <div class="modal-body">
-          <input type="hidden" name="action" value="edit">
-          <input type="hidden" name="edit_id" id="edit_id_modal">
-          <div class="form-group">
-            <label for="title_modal">Title:</label>
-            <input type="text" class="form-control" id="title_modal" name="title" required>
-          </div>
-          <div class="form-group">
-            <label for="author_modal">Author:</label>
-            <input type="text" class="form-control" id="author_modal" name="author" required>
-          </div>
-          <div class="form-group">
-            <label for="date_pub_modal">Date Published:</label>
-            <input type="date" class="form-control" id="date_pub_modal" name="date_pub" required>
-          </div>
-          <div class="form-group">
-            <label for="abstract_modal">Abstract:</label>
-            <textarea class="form-control" id="abstract_modal" name="abstract" rows="4" required></textarea>
-          </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Capstone</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <form id="editForm" method="POST" action="edit.php"> <!-- Ensure action points to edit_capstone.php -->
+                <div class="modal-body">
+                <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="edit_id" id="edit_id_modal">
+                    <div class="form-group">
+                        <label for="title_modal">Title:</label>
+                        <input type="text" class="form-control" id="title_modal" name="title" value="<?php echo isset($capstone['title']) ? $capstone['title'] : ''; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author_modal">Author:</label>
+                        <input type="text" class="form-control" id="author_modal" name="author" value="<?php echo isset($capstone['author']) ? $capstone['author'] : ''; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_pub_modal">Date Published:</label>
+                        <input type="date" class="form-control" id="date_pub_modal" name="date_pub" value="<?php echo isset($capstone['date_published']) ? $capstone['date_published'] : ''; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="abstract_modal">Abstract:</label>
+                        <textarea class="form-control" id="abstract_modal" name="abstract" rows="4" required><?php echo isset($capstone['abstract']) ? $capstone['abstract'] : ''; ?></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
+                </div>
+            </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
-        </div>
-      </form>
     </div>
-  </div>
 </div>
-
 </body>
 <script>
-    // HINDI NAGPAPAKITA ANG IEEDIT NA INFORMATION
-document.addEventListener("DOMContentLoaded", function() {
-  // Get all edit buttons
-  var editButtons = document.querySelectorAll(".edit-btn");
-
-  // Add click event listener to each edit button
-  editButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-      var capstoneId = button.getAttribute("data-id");
-
-      // Fetch capstone data
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-            var capstoneData = JSON.parse(xhr.responseText);
-            document.getElementById("edit_id_modal").value = capstoneData.id;
-            document.getElementById("title_modal").value = capstoneData.title;
-            document.getElementById("author_modal").value = capstoneData.author;
-            document.getElementById("date_pub_modal").value = capstoneData.date_published;
-            document.getElementById("abstract_modal").value = capstoneData.abstract;
-          } else {
-            console.error("Request failed with status:", xhr.status);
-          }
-        }
-      };
-      xhr.open("GET", "index.php?edit=" + capstoneId, true);
-      xhr.send();
+    // JavaScript to set the edit_id_modal input field in the modal
+    var editModal = document.getElementById('editModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var editId = button.getAttribute('data-bs-id');
+        var editIdModal = editModal.querySelector('#edit_id_modal');
+        editIdModal.value = editId;
     });
-  });
-});
 </script>
 </html>
