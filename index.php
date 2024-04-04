@@ -19,9 +19,38 @@ include('delete.php');
 </head>
 <body>
 
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Capstone Management</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+       
+    </div>
+
     <div class="container-fluid">
         <div class="row" style="height:100vh;">
-            <div class="col-sm-4" style="overflow-y:hidden;">Add here <!-- LEFT PART-->
+            <div class="col-sm-4" style="overflow-y:hidden;">Add here 
                 <h1 class="mb-4">Submit New Capstone</h1>
                 <form method="POST">
                     <input type="hidden" name="action" value="add">
@@ -45,7 +74,7 @@ include('delete.php');
                     <button type="submit" class="btn btn-dark" name="submit" style="float:right;">Add Capstone</button>
                 </form>
             </div>
-            <div class="col-sm-8" style="overflow-y:auto;">Browse here <!-- EDIT VIEW PART -->
+            <div class="col-sm-8" style="overflow-y:auto;">Browse here
                 <div class="row mt-5">
                     <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
@@ -74,7 +103,7 @@ include('delete.php');
             </div>
         </div>
     </div>
-<!-- Modal for Editing -->
+
 <div class="modal fade" id="editModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -86,6 +115,9 @@ include('delete.php');
                 <div class="modal-body">
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="edit_id" id="edit_id_modal" value="">
+
+                <div class="card">
+                        <div class="card-body">
                     <div class="form-group">
                         <label for="title_modal">Title:</label>
                         <input type="text" class="form-control" id="title_modal" name="title" value="<?php echo isset($capstone['title']) ? $capstone['title'] : ''; ?>" required>
@@ -107,14 +139,14 @@ include('delete.php');
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
                 </div>
-
+                </div>
+                </div>
 
             </form>
         </div>
     </div>
 </div>
 
-<!-- View Modal -->
 <div class="modal fade" id="viewModal">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -194,4 +226,12 @@ include('delete.php');
 
 
 </script>
+<style>
+
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+        transition: all 0.4s ease;
+    }
+</style>
 </html>
