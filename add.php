@@ -1,4 +1,4 @@
-<?php
+<?php 
 include('dbconn.php');
 
 if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'add') {
