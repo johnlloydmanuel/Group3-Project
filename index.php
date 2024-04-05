@@ -48,6 +48,10 @@ include('type.php');
             </div>
             <div class="col-sm-8" style="overflow-y:auto;">Browse here <!-- EDIT VIEW PART -->
 
+            <!--
+                included search input and button
+                name 'forSearch' is used in type.php
+            -->
             <div class="input-group mb-3 w-25 float-end">
             <form method="post">
     <input type="text" class="form-control" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal:'';?>">
@@ -58,9 +62,9 @@ include('type.php');
 
             
 
-
+                          //changed $capstone -> $searchCapstone of type.php
                 <div class="row mt-5">
-                    <?php foreach($searchCapstone as $capstone): ?>
+                    <?php foreach($searchCapstone as $capstone): ?> 
                         <div class="col-md-4 mb-4">
                             <div class="card" style="width: 100%; height: 100%;">
                                 <div class="card-body">
