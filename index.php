@@ -51,6 +51,8 @@ include('type.php');
             <!--
                 included search input and button
                 name 'forSearch' is used in type.php
+                
+                when 'add capstone' inserted 'forSearch' cause error; otherwise when search is made, error does not appear
             -->
             <div class="input-group mb-3 w-25 float-end">
             <form method="post">
@@ -66,7 +68,7 @@ include('type.php');
                 <div class="row mt-5">
                     <?php foreach($searchCapstone as $capstone): ?> 
                         <div class="col-md-4 mb-4">
-                            <div class="card" style="width: 100%; height: 100%;">
+                        <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
@@ -77,7 +79,7 @@ include('type.php');
                                     <label for="abstract" class="font-weight-bold">Abstract</label>
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
                                     <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
-                                      <button type="button" class="btn btn-dark edit-btn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<?php echo $capstone['id']; ?>">Edit</button>
+                                    <button type="button" class="btn btn-dark edit-btn" onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">Edit</button>
                                       <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
                                   </div>
                                 </div>
@@ -92,7 +94,7 @@ include('type.php');
     </div>
 <!-- Modal for Editing -->
 <div class="modal fade" id="editModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Capstone</h5>
@@ -101,7 +103,7 @@ include('type.php');
             <form id="editForm" method="POST" action="edit.php"> <!-- Ensure action points to edit_capstone.php -->
                 <div class="modal-body">
                 <input type="hidden" name="action" value="edit">
-                    <input type="hidden" name="edit_id" id="edit_id_modal">
+                    <input type="hidden" name="edit_id" id="edit_id_modal" value="">
                     <div class="form-group">
                         <label for="title_modal">Title:</label>
                         <input type="text" class="form-control" id="title_modal" name="title" value="<?php echo isset($capstone['title']) ? $capstone['title'] : ''; ?>" required>
@@ -127,16 +129,83 @@ include('type.php');
         </div>
     </div>
 </div>
+
+<!-- View Modal -->
+<div class="modal fade" id="viewModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Capstone</h5>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <label for="view_title">Title</label>
+                            <p id="view_title" class="font-weight-bold"></p>
+                            <label for="view_author">Author</label>
+                            <p id="view_author" class="font-weight-bold"></p>
+                            <label for="view_date_published">Date published</label>
+                            <p id="view_date_published" class="font-weight-bold"></p>
+                            <label for="view_abstract">Abstract</label>
+                            <p id="view_abstract"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script>
     // JavaScript to set the edit_id_modal input field in the modal
+    function propa(event){
+    event.stopPropagation();
+  }
+
+  function openEditModal(editId, title, author, datePublished, abstract) {
+    propa(event);
     var editModal = document.getElementById('editModal');
-    editModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var editId = button.getAttribute('data-bs-id');
-        var editIdModal = editModal.querySelector('#edit_id_modal');
-        editIdModal.value = editId;
-    });
+    var titleInput = editModal.querySelector('#title_modal');
+    var authorInput = editModal.querySelector('#author_modal');
+    var datePubInput = editModal.querySelector('#date_pub_modal');
+    var abstractInput = editModal.querySelector('#abstract_modal');
+    var editIdInput = editModal.querySelector('#edit_id_modal');
+
+    titleInput.value = title;
+    authorInput.value = author;
+    datePubInput.value = datePublished;
+    abstractInput.value = abstract;
+    editIdInput.value = editId;
+
+    var bsModal = new bootstrap.Modal(editModal);
+    bsModal.show();
+}
+
+
+
+
+    function openViewModal(title, author, date_published, abstract) {
+  
+        var viewModal = document.getElementById('viewModal');
+        var viewTitle = viewModal.querySelector('#view_title');
+        var viewAuthor = viewModal.querySelector('#view_author');
+        var viewDatePublished = viewModal.querySelector('#view_date_published');
+        var viewAbstract = viewModal.querySelector('#view_abstract');
+
+        viewTitle.textContent = title;
+        viewAuthor.textContent = author;
+        viewDatePublished.textContent = date_published;
+        viewAbstract.textContent = abstract;
+
+        var bsModal = new bootstrap.Modal(viewModal);
+        bsModal.show();
+    }
+
 
    
 
