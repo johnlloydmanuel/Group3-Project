@@ -64,7 +64,7 @@ include('type.php');
 
             
 
-                          //changed $capstone -> $searchCapstone of type.php
+                          <!--changed $capstone -> $searchCapstone of type.php-->
                 <div class="row mt-5">
                     <?php foreach($searchCapstone as $capstone): ?> 
                         <div class="col-md-4 mb-4">
