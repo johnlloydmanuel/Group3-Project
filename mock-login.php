@@ -1,3 +1,7 @@
+<?php
+echo(password_hash("hotdog", PASSWORD_BCRYPT));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,16 +20,16 @@
                     <img src="resources/placeholder-logo.png" class="card-img-top w-25 h-25 m-auto" alt="logo of logo">
                     <div class="card-body">
                         <h1 class="card-title text-center">LOREM IPSUM</h1>
-                     <form action="">
+                     <form action="verify.php" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" name="user-email">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" name="user-pass">
                         </div>
-                        <button class="btn btn-warning text-white w-100" style="font-weight: 500;">Login</button>
+                        <button type="submit" name="btn-login" class="btn btn-warning text-white w-100" style="font-weight: 500;">Login</button>
                      </form>
                     </div>
                   </div>
