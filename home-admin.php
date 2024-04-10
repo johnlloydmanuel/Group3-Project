@@ -49,7 +49,7 @@ include('delete-admin.php');
                 <div class="row mt-5">
                     <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
-                            <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
+                            <div class="card bg-light" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
@@ -59,12 +59,12 @@ include('delete-admin.php');
                                     <p class="card-text"><?php echo $capstone['date_published']; ?></p>
                                     <label for="abstract" class="font-weight-bold">Abstract</label>
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
-                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
-                                    <button  type="button" class="btn btn-dark edit-btn" onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">
+                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 10px;">
+                                    <button  type="button" class="btn btn-dark edit-btn"  onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">
                                         Edit
                                     </button>
 
-                                      <a href="?delete=<?php echo $capstone['id']; ?>" value="delete" class="btn btn-dark">Delete</a>
+                                      <a href="?delete=<?php echo $capstone['id']; ?>" value="delete" class="btn btn-dark" onclick="propa(event);">Delete</a>
                                   </div>
                                 </div>
                             </div>
@@ -194,4 +194,18 @@ include('delete-admin.php');
 
 
 </script>
+<style>
+
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+        transition: all 0.4s ease;
+    }
+    .card{
+        border-radius: 20px;
+    }
+    .btn{
+        border-radius:10px;
+    }
+</style>
 </html>
