@@ -66,7 +66,11 @@ include('type.php');
 
                           <!--changed $capstone -> $searchCapstone of type.php-->
                 <div class="row mt-5">
-                    <?php foreach($searchCapstone as $capstone): ?> 
+                    <?php 
+                    if(!empty($searchCapstone)){
+
+                    
+                    foreach($searchCapstone as $capstone): ?> 
                         <div class="col-md-4 mb-4">
                         <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
@@ -85,7 +89,12 @@ include('type.php');
                                 </div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                    <?php 
+                endforeach; 
+            }else{
+                echo 'no record found';
+            }
+                ?>
                 </div>
 
                 
