@@ -4,6 +4,7 @@ include('get-admin.php');
 include('add-admin.php');
 include('edit-admin.php');
 include('delete-admin.php');
+include('search-admin.php');
 ?>
 
 
@@ -16,12 +17,22 @@ include('delete-admin.php');
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 
     <div class="container-fluid">
         <div class="row" style="height:100vh;">
             <div class="col-sm-4" style="overflow-y:hidden;">Add here <!-- LEFT PART-->
+
+            <!-- Search Bar -->
+        <div class="input-group mb-3">
+            <input type="text" id="searchBar" class="form-control" placeholder="Search for titles...">
+            <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+        </div>
+        <div id="searchResults"></div>
+
                 <h1 class="mb-4">Submit New Capstone</h1>
                 <form method="POST">
                     <input type="hidden" name="action" value="add">
@@ -49,7 +60,7 @@ include('delete-admin.php');
                 <div class="row mt-5">
                     <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
-                            <div class="card bg-light" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
+                            <div class="card" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
@@ -59,12 +70,12 @@ include('delete-admin.php');
                                     <p class="card-text"><?php echo $capstone['date_published']; ?></p>
                                     <label for="abstract" class="font-weight-bold">Abstract</label>
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
-                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 10px;">
-                                    <button  type="button" class="btn btn-dark edit-btn"  onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">
+                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
+                                    <button  type="button" class="btn btn-dark edit-btn" onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">
                                         Edit
                                     </button>
 
-                                      <a href="?delete=<?php echo $capstone['id']; ?>" value="delete" class="btn btn-dark" onclick="propa(event);">Delete</a>
+                                      <a href="?delete=<?php echo $capstone['id']; ?>" value="delete" class="btn btn-dark">Delete</a>
                                   </div>
                                 </div>
                             </div>
@@ -149,6 +160,62 @@ include('delete-admin.php');
 </body>
 <script>
 
+$(document).ready(function(){
+    // function to filter capstone base on search input
+    function filterCapstones(query) {
+        $(".card-title").each(function(){
+            let title = $(this).text().toLowerCase(); //convert title to lowercase
+            if(title.includes(query.toLowerCase())) {
+                $(this).closest(".col-md-4").show(); // show capstone if match the searh input
+            } else {
+                $(this).closest(".col-md-4").hide(); //hide capstone if match searchinput
+            }
+        });
+    }
+
+    $("#searchBar").on("keyup", function(){
+        let query = $(this).val();
+        
+        if(query.length > 0){
+            $.ajax({
+                url: 'search-admin.php',
+                method: 'POST',
+                data: {query: query},
+                success: function(data){
+                    $("#searchResults").html(data);
+                }
+            });
+        } else {
+            $("#searchResults").empty();
+            $(".col-md-4").show(); // show all titles when searchar empty
+        }
+    });
+
+    // click function for title suggestion
+    $(document).on("click", ".search-item", function(){
+        let clickedTitle = $(this).text();
+        $("#searchBar").val(clickedTitle);
+        filterCapstones(clickedTitle); // show title when clicked
+    });
+
+    //search button fuction
+    $("#searchButton").click(function(){
+        let query = $("#searchBar").val();
+        
+        if(query.length > 0){
+            filterCapstones(query); // flter titles base on search 
+        } else {
+            $(".col-md-4").show(); // show all titles when searchar empty
+        }
+    });
+});
+
+
+
+
+
+
+
   function propa(event){
     event.stopPropagation();
   }
@@ -194,18 +261,4 @@ include('delete-admin.php');
 
 
 </script>
-<style>
-
-    .card:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transform: translateY(-5px);
-        transition: all 0.4s ease;
-    }
-    .card{
-        border-radius: 20px;
-    }
-    .btn{
-        border-radius:10px;
-    }
-</style>
 </html>
