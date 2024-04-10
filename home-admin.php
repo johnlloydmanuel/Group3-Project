@@ -1,9 +1,9 @@
 <?php
 include('dbconn.php');
-include('get.php');
-include('add.php');
-include('edit.php');
-include('delete.php');
+include('get-admin.php');
+include('add-admin.php');
+include('edit-admin.php');
+include('delete-admin.php');
 ?>
 
 
@@ -64,7 +64,7 @@ include('delete.php');
                                         Edit
                                     </button>
 
-                                      <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
+                                      <a href="?delete=<?php echo $capstone['id']; ?>" value="delete" class="btn btn-dark">Delete</a>
                                   </div>
                                 </div>
                             </div>

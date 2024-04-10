@@ -17,7 +17,7 @@ if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'a
 
     try {
         $stmt->execute();
-        header("Location: index.php");
+        header("Location: home-admin.php");
         exit;
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
