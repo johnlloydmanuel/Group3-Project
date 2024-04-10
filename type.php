@@ -5,7 +5,7 @@ include('dbconn.php');
 include('get.php');
 
 
-$searchVal = $_POST['forSearch'];
+$searchVal = $_POST['forSearch'] ?? null;
 
 // Fetch all capstones from the database
 $stmt = $conn->prepare("SELECT * FROM tblcapstone

@@ -56,7 +56,7 @@ include('type.php');
             -->
             <div class="input-group mb-3 w-25 float-end">
             <form method="post">
-    <input type="text" class="form-control" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal:'';?>">
+    <input type="text" class="form-control" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
     <input type="submit" name="capSearch" value="SEARCH" class="btn btn-primary">
 </form>
                           </div>

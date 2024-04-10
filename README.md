@@ -6,4 +6,4 @@ new file:
 - verify.php
 
 changes:
-- 
+- search function now return and notify that there is no matching result found
