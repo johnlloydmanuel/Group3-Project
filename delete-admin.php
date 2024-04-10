@@ -5,7 +5,7 @@ include('dbconn.php');
 if(isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-    $sql = "UPDATE tblcapstone SET is_status = 0 WHERE id = :id";
+    $sql = "UPDATE tblcapstone SET is_status = '0' WHERE id = :id";
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id);
