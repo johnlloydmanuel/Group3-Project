@@ -4,6 +4,7 @@ include('get.php');
 include('add.php');
 include('edit.php');
 include('delete.php');
+include('search.php');
 ?>
 
 
@@ -14,14 +15,18 @@ include('delete.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </head>
 <body>
-
     <div class="container-fluid">
         <div class="row" style="height:100vh;">
             <div class="col-sm-4" style="overflow-y:hidden;">Add here <!-- LEFT PART-->
+            <!--search bar-->
+            <input type="text" id="searchBar" class="form-control mt-4" placeholder="Search by title...">
+            <div id="searchResults" class="mt-2"></div>
+
                 <h1 class="mb-4">Submit New Capstone</h1>
                 <form method="POST">
                     <input type="hidden" name="action" value="add">
@@ -148,6 +153,25 @@ include('delete.php');
 
 </body>
 <script>
+
+$(document).ready(function(){
+            $("#searchBar").on("keyup", function(){
+                let query = $(this).val();
+                
+                if(query.length > 0){
+                    $.ajax({
+                        url: 'search.php',
+                        method: 'POST',
+                        data: {query: query},
+                        success: function(data){
+                            $("#searchResults").html(data);
+                        }
+                    });
+                } else {
+                    $("#searchResults").empty();
+                }
+            });
+        });
 
   function propa(event){
     event.stopPropagation();
