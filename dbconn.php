@@ -1,7 +1,7 @@
 <?php
 
-$servername = "localhost";
-$dbusername = "root";
+$servername = "192.168.100.17";
+$dbusername = "sige";
 $dbpassword = ""; 
 $database = "dbcapstones";
 
