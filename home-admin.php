@@ -24,21 +24,21 @@ include('type.php');
 
     <div class="container-fluid">
         <div class="row" style="height:100vh;">
-        <div class="col-sm-auto d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-center" >
+        <div class="col-sm-auto bg-dark" >
         <div class="left" style="overflow:hidden; height: 100%;">
 
-                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto text-center align-items-center">
-                    <li class="nav-item mt-2">
+                <ul class="nav nav-pills nav-flush flex-sm-column mt-3" style="margin:-10;">
+                    <li class="nav-item m-auto pt-3">
                         <a href="home-admin.php" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
                         <i class="bi bi-house-fill h3 text-light"></i>
                         </a>
                     </li>
-                    <li class="nav-item mt-2">
+                    <li class="nav-item m-auto pt-3">
                         <a href="#" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right" >
                         <i class="bi bi-star-fill h3 text-light"></i>
                         </a>
                     </li>
-                    <li class="nav-item mt-2">
+                    <li class="nav-item m-auto pt-3">
                         <a href="#" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right">
                         <i class="bi bi-person-circle h3 text-light"></i>
                         </a>
@@ -74,13 +74,20 @@ include('type.php');
             </div>
             <div class="col-sm-8" style="overflow-y:auto; height: 100%;">
             <div class="scrollable-right">
-            <div class="input-group mb-3 w-25 float-end">
-            <form method="post">
-    <input type="text" class="form-control" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
-    <input type="submit" name="capSearch" value="SEARCH" class="btn btn-primary">
-</form>
-                          </div>
-                <div class="row mt-5">
+       
+            <div class="col-sm-12 text-center" >
+                    <form method="post" style="display: inline-block; width:75%;">
+                        <div class="input-group m-3">
+                            <input type="text" class="form-control rounded-pill" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
+                            <button type="submit" name="capSearch" value="SEARCH" class="btn btn-primary rounded-pill text-light bg-dark border-none" style="border:none;">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            
+                     
+                <div class="row">
                 <?php if (count($capstones) == 0): ?>
                     <div class="col-12 text-center">
                     <div class="h5">
@@ -95,7 +102,7 @@ include('type.php');
                     
                     foreach($searchCapstone as $capstone): ?> 
                         <div class="col-md-4 mb-4">
-                        <div class="card" onclick="openViewModal('<?php echo $capstone['id']; ?>','<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
+                        <div class="card bg-light" onclick="openViewModal('<?php echo $capstone['id']; ?>','<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
