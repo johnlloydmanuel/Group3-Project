@@ -45,7 +45,7 @@ include('delete-admin.php');
                 </ul>
                 </div>
         </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 bg-light">
             <div class="middle" style="overflow:hidden; height: 100%;">
                 <h1 class="mb-4">Submit Capstone <i class="fas fa-solid fa-star"></i></h1>
                 <form method="POST">
@@ -243,6 +243,9 @@ include('delete-admin.php');
     }
     .btn{
         border-radius:10px;
+    }
+    .col-sm-3{
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 </style>
 </html>
