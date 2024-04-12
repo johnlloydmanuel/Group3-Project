@@ -20,13 +20,13 @@
                         <h1>LOGIN</h1>
                         <div class="email-login">
                             <input class="inpt" type="email" name="email" id="" placeholder="Email " required>
-                           
+
                         </div>
 
                         <div class="password-login">
                             <input class="inpt" type="password" name="password" id="password-login"
                                 placeholder="Password" required>
-                          
+
                         </div>
 
                         <div class="forget">
@@ -45,32 +45,35 @@
             <div class="box-signup">
                 <ul>
                     <form action="register.php" method="POST">
-                    <input type="hidden" name="action" value="add">
+                        <input type="hidden" name="action" value="add">
                         <h1>SIGN UP</h1>
                         <div class="user-signup">
                             <input class="inpt" type="text" name="name" id="name" placeholder="Name">
-                           
+
                         </div>
 
                         <div class="user-signup">
                             <input class="inpt" type="text" name="studentId" id="studentId" placeholder="Student Id">
-                          
+
                         </div>
-                        <div class="user-signup">
-                            <input class="inpt" type="text" name="username" id="username" placeholder="User Name">
-                            
-                        </div>
+                       
 
                         <div class="email-signup">
-                            <input class="inpt" type="email" name="email" id="email" placeholder="Email "
-                                required>
-                           
+                            <input class="inpt" type="email" name="email" id="email" placeholder="Email " required>
                         </div>
 
                         <div class="password-signup">
-                            <input class="inpt" type="password" name="password" id="password"
-                                placeholder="Password" required>
-                       
+                            <input class="inpt" type="password" name="password" id="password" placeholder="Password"
+                                required>
+
+                        </div>
+                        <div class="user-signup">
+                            <select class="inpt" name="accountType" id="accountType" required>
+                                <option value="">Select account type</option>
+                                <option value="student">Student</option>
+                                <option value="admin">Admin</option>
+                            </select>
+
                         </div>
 
 
