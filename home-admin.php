@@ -80,7 +80,7 @@ include('type.php');
     <input type="text" class="form-control" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
     <input type="submit" name="capSearch" value="SEARCH" class="btn btn-primary">
 </form>
-                          </div>
+                          </div> 
                 <?php if (count($capstones) == 0): ?>
                     <div class="col-12 text-center">
                     <div class="h5">
