@@ -4,7 +4,6 @@ include('get-admin.php');
 include('add-admin.php');
 include('edit-admin.php');
 include('delete-admin.php');
-include('type.php');
 ?>
 
 
@@ -75,12 +74,6 @@ include('type.php');
             <div class="col-sm-8" style="overflow-y:auto; height: 100%;">
             <div class="scrollable-right">
                 <div class="row mt-5">
-                <div class="input-group mb-3 w-25 float-end">
-            <form method="post">
-    <input type="text" class="form-control" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
-    <input type="submit" name="capSearch" value="SEARCH" class="btn btn-primary">
-</form>
-                          </div>
                 <?php if (count($capstones) == 0): ?>
                     <div class="col-12 text-center">
                     <div class="h5">
@@ -89,13 +82,9 @@ include('type.php');
                     </div>
                         
                     <?php else: ?>
-                        <?php 
-                    if(!empty($searchCapstone)){
-
-                    
-                    foreach($searchCapstone as $capstone): ?> 
+                    <?php foreach($capstones as $capstone): ?>
                         <div class="col-md-4 mb-4">
-                        <div class="card" onclick="openViewModal('<?php echo $capstone['id']; ?>','<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
+                            <div class="card bg-light" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
                                     <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
@@ -105,19 +94,17 @@ include('type.php');
                                     <p class="card-text"><?php echo $capstone['date_published']; ?></p>
                                     <label for="abstract" class="font-weight-bold">Abstract</label>
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
-                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
-                                    <button type="button" class="btn btn-dark edit-btn" onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">Edit</button>
-                                      <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
+                                    <div class="mt-5" style="position: absolute; bottom: 2px; right: 10px;">
+                                    <button  type="button" class="btn btn-dark edit-btn"  onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">
+                                        Edit
+                                    </button>
+
+                                      <a href="?delete=<?php echo $capstone['id']; ?>" value="delete" class="btn btn-dark" onclick="propa(event);">Delete</a>
                                   </div>
                                 </div>
                             </div>
                         </div>
-                    <?php 
-                endforeach; 
-            }else{
-                echo 'no record found';
-            }
-                ?>
+                    <?php endforeach; ?>
                     <?php endif;?>
                 </div>
             </div>
