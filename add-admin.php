@@ -7,7 +7,9 @@ if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'a
     $date_pub = $_POST['date_pub'];
     $abstract = $_POST['abstract'];
 
-    $sql = "INSERT INTO tblcapstone (title, author, date_published, abstract) VALUES (:title, :author, :date_pub, :abstract)";
+    $status = 1;
+
+    $sql = "INSERT INTO tblcapstone (title, author, date_published, abstract, is_status) VALUES (:title, :author, :date_pub, :abstract ,:is_status)";
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':title', $title);
@@ -15,9 +17,13 @@ if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'a
     $stmt->bindParam(':date_pub', $date_pub);
     $stmt->bindParam(':abstract', $abstract);
 
+    $stmt->bindParam(':is_status', $status);
+
+
+
     try {
         $stmt->execute();
-        header("Location: index.php");
+        header("Location: home-admin.php");
         exit;
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
