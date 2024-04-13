@@ -1,0 +1,76 @@
+<!-- 
+    - recryled code format
+    - no validation yet (incomplete validation)
+-->
+
+<?php
+session_start();
+
+if(isset($_POST["btn-login"])){
+	
+	$email = $_POST["email"];
+	$password = $_POST["password"];
+	
+	
+    if(strlen($password) < 8){
+		echo "
+        <script type=\"text/javascript\">
+            alert('Password not match');
+            history.back(1);
+        </script>
+            ";
+	}
+    else {
+		$myRoot = $_SERVER["DOCUMENT_ROOT"];
+
+		require($myRoot."/main-forLogin/Group3-Project/functions/connection/dbconn.php");
+		
+		$sql = "SELECT id,email,password, accountType FROM tbl_register WHERE email = :email";
+		
+		$val = array(":email" => $email);
+		
+		$result = $conn->prepare($sql);
+		$result->execute($val);
+		
+		if($result->rowCount() == 1){
+			
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			
+			if(password_verify($password, $row["password"]) && $row["accountType"] == 'admin'){
+				
+				$_SESSION["id"] = $row["id"];
+				
+				header("location:./pages/home-admin.php");
+				exit();
+			} else if(password_verify($password, $row["password"]) && $row["accountType"] == 'student'){
+                $_SESSION["id"] = $row["id"];
+				
+				header("location:homePage.php");
+				exit();
+            }else {
+				echo "
+        <script type=\"text/javascript\">
+            alert('Invalid Credentials');
+            history.back(1);
+        </script>
+            ";
+            
+			}
+			
+		} else {
+			echo "
+        <script type=\"text/javascript\">
+            alert('Invalid Credentials');
+            history.back(1);
+        </script>
+            ";
+		}
+	
+	}
+	
+} else {
+	header("location:testpage2.php");
+	exit();
+}
+
+?>
