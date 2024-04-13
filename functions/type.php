@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="bootstrap.min.css">
 
 <?php
-include('dbconn.php');
-include('get-admin.php');
+include('../functions/connection/dbconn.php');
+include('../functions/admin/get-admin.php');
 
 
 $searchVal = $_POST['forSearch'] ?? null;

@@ -1,5 +1,5 @@
 <?php
-include('dbconn.php');
+include('../functions/connection/dbconn.php');
 
 // Check if the delete parameter is set in the URL
 if(isset($_GET['delete'])) {
@@ -12,7 +12,7 @@ if(isset($_GET['delete'])) {
 
     try {
         $stmt->execute();
-        header("Location: home-admin.php");
+        header("Location: ../pages/home-admin.php");
         exit;
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();

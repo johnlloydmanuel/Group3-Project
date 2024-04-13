@@ -1,5 +1,5 @@
 <?php
-include('dbconn.php');
+include('../functions/connection/dbconn.php');
 
 
 // Fetch capstone data based on the edit ID
@@ -27,7 +27,7 @@ if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'e
 
     try {
         $stmt->execute();
-        header("Location: home-admin.php");
+        header("Location: ../pages/home-admin.php");
         exit;
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
