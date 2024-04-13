@@ -24,27 +24,39 @@ include('../functions/type.php');
 
     <div class="container-fluid">
         <div class="row" style="height:100vh;">
-        <div class="col-sm-auto bg-dark" >
-        <div class="left" style="overflow:hidden; height: 100%;">
-
-                <ul class="nav nav-pills nav-flush flex-sm-column mt-3" style="margin:-10;">
-                    <li class="nav-item m-auto pt-3">
-                        <a href="home-admin.php" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-                        <i class="bi bi-house-fill h3 text-light"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item m-auto pt-3">
-                        <a href="#" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right" >
-                        <i class="bi bi-star-fill h3 text-light"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item m-auto pt-3">
-                        <a href="#" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <i class="bi bi-person-circle h3 text-light"></i>
-                        </a>
-                    </li>
-                </ul>
+        <div class="col-sm-1 bg-dark" >
+        <div class="left d-flex flex-column justify-content-between align-items-center" style="overflow:hidden; height: 100%;">
+    <ul class="nav nav-pills flex-column mt-3 text-center">
+        <li class="nav-item m-auto pt-3">
+            <a href="home-admin.php" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-house-fill h3 text-light"></i>
+                    <label class="text-light ml-2">Home</label>
                 </div>
+            </a>
+        </li>
+        <li class="nav-item m-auto pt-3">
+            <a href="#" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-person-circle h3 text-light"></i>
+                    <label class="text-light ml-2">Profile</label>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav nav-pills mt-auto text-center">
+        <li class="nav-item m-auto pt-3">
+            <a href="#" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-box-arrow-left h3 text-light"></i>
+                    <label class="text-light ml-2">Logout</label>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
         </div>
             <div class="col-sm-3 bg-light">
             <div class="middle" style="overflow:hidden; height: 100%;">
@@ -133,10 +145,10 @@ include('../functions/type.php');
                     
                     foreach($searchCapstone as $capstone): ?> 
                         <div class="col-md-4 mb-4">
-                        <div class="card bg-light" onclick="openViewModal('<?php echo $capstone['id']; ?>','<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
+                        <div class="card bg-light" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)" style="width: 100%; height: 100%;" >
                                 <div class="card-body">
                                     <label for="title" class="font-weight-bold">Title</label>
-                                    <h5 class="card-title"><?php echo $capstone['title']; ?></h5>
+                                    <h5 class="card-title text-truncate"><?php echo $capstone['title']; ?></h5>
                                     <label for="author" class="font-weight-bold">Author</label>
                                     <h6 class="card-subtitle mb-2 text-muted"><?php echo $capstone['author']; ?></h6>
                                     <label for="date published" class="font-weight-bold">Date published</label>
@@ -267,22 +279,21 @@ include('../functions/type.php');
 
 
 
-    function openViewModal(title, author, date_published, abstract) {
-  
-        var viewModal = document.getElementById('viewModal');
-        var viewTitle = viewModal.querySelector('#view_title');
-        var viewAuthor = viewModal.querySelector('#view_author');
-        var viewDatePublished = viewModal.querySelector('#view_date_published');
-        var viewAbstract = viewModal.querySelector('#view_abstract');
+function openViewModal(title, author, date_published, abstract, event) {
+    var viewModal = document.getElementById('viewModal');
+    var viewTitle = viewModal.querySelector('#view_title');
+    var viewAuthor = viewModal.querySelector('#view_author');
+    var viewDatePublished = viewModal.querySelector('#view_date_published');
+    var viewAbstract = viewModal.querySelector('#view_abstract');
 
-        viewTitle.textContent = title;
-        viewAuthor.textContent = author;
-        viewDatePublished.textContent = date_published;
-        viewAbstract.textContent = abstract;
+    viewTitle.textContent = title;
+    viewAuthor.textContent = author;
+    viewDatePublished.textContent = date_published;
+    viewAbstract.textContent = abstract;
 
-        var bsModal = new bootstrap.Modal(viewModal);
-        bsModal.show();
-    }
+    var bsModal = new bootstrap.Modal(viewModal);
+    bsModal.show();
+}
 
 
 </script>
