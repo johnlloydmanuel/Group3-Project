@@ -74,7 +74,8 @@ include('../functions/type.php');
             </div>
             <div class="col-sm-8" style="overflow-y:auto; height: 100%;">
             <div class="scrollable-right">
-       
+
+            <div class="row bg-light">
             <div class="col-sm-12 text-center" >
                     <form method="post" style="display: inline-block; width:75%;">
                         <div class="input-group m-3">
@@ -85,6 +86,35 @@ include('../functions/type.php');
                         </div>
                     </form>
                 </div>
+                </div>
+
+                <form action="" method="GET">
+                <div class="row bg-light">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="date" name="from_date" class="form-control">
+                        </div>
+                        </div>
+                        <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="date" name="to_date" class="form-control">
+                        </div>
+                        </div> 
+                </div>
+                <div class="row bg-light">
+                    <div class="col-sm-6">
+                       
+                    </div>
+                    <div class="col-sm-5">
+                        
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" class="btn btn-dark">Apply</button>
+                    </div>
+                </div>
+                </form>
             
                      
                 <div class="row">
@@ -268,7 +298,7 @@ include('../functions/type.php');
     .btn{
         border-radius:10px;
     }
-    .col-sm-3{
+    .col-sm-3,.row{
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 </style>
