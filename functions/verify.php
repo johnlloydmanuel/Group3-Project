@@ -12,7 +12,7 @@ if(isset($_POST["btn-login"])){
 	$password = $_POST["password"];
 	
 	
-    if(strlen($password) < 8){
+    if(strlen($password) < 4){  //change to 8 after testing
 		echo "
         <script type=\"text/javascript\">
             alert('Password not match');
