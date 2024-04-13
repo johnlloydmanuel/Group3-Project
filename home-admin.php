@@ -85,6 +85,33 @@ include('type.php');
                         </div>
                     </form>
                 </div>
+                <form action="" method="GET">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="date" name="from_date" class="form-control">
+                        </div>
+                        </div>
+                        <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="date" name="to_date" class="form-control">
+                        </div>
+                        </div> 
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                       
+                    </div>
+                    <div class="col-sm-5">
+                        
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" class="btn btn-dark">Apply</button>
+                    </div>
+                </div>
+                </form>
             
                      
                 <div class="row">
