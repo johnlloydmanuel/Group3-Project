@@ -74,7 +74,7 @@ include('type.php');
             </div>
             <div class="col-sm-8" style="overflow-y:auto; height: 100%;">
             <div class="scrollable-right">
-       
+        
             <div class="col-sm-12 text-center" >
                     <form method="post" style="display: inline-block; width:75%;">
                         <div class="input-group m-3">
