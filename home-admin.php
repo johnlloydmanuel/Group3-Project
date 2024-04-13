@@ -114,7 +114,7 @@ include('type.php');
                                     <p class="card-text text-truncate"><?php echo $capstone['abstract']; ?></p>
                                     <div class="mt-5" style="position: absolute; bottom: 2px; right: 2px;">
                                     <button type="button" class="btn btn-dark edit-btn" onclick="openEditModal('<?php echo $capstone['id']; ?>', '<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>')">Edit</button>
-                                      <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark">Delete</a>
+                                      <a href="?delete=<?php echo $capstone['id']; ?>" class="btn btn-dark" onclick="propa(event);">Delete</a>
                                   </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ include('type.php');
                 <h5 class="modal-title">Edit Capstone</h5>
                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
             </div>
-            <form id="editForm" method="POST" action="edit.php"> 
+            <form id="editForm" method="POST" action="edit-admin.php"> 
                 <div class="modal-body">
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="edit_id" id="edit_id_modal" value="">
