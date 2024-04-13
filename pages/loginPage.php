@@ -48,7 +48,7 @@ echo(password_hash("1234567", PASSWORD_BCRYPT));
 
             <div class="box-signup">
                 <ul>
-                    <form action="register.php" method="POST">
+                    <form action="../functions/register.php" method="POST">
                         <input type="hidden" name="action" value="add">
                         <h1>SIGN UP</h1>
                         <div class="user-signup">
