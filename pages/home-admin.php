@@ -139,7 +139,7 @@ include('../functions/type.php');
                 <h5 class="modal-title">Edit Capstone</h5>
                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
             </div>
-            <form id="editForm" method="POST" action="edit-admin.php"> 
+            <form id="editForm" method="POST" action="../functions/admin/edit-admin.php"> 
                 <div class="modal-body">
                 <input type="hidden" name="action" value="edit">
                 <input type="hidden" name="edit_id" id="edit_id_modal" value="">
