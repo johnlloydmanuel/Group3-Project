@@ -5,7 +5,6 @@ include('../functions/admin/add-admin.php');
 include('../functions/admin/edit-admin.php');
 include('../functions/admin/delete-admin.php');
 include('../functions/type.php');
-include('../functions/get-date.php');
 ?>
 
 
@@ -75,21 +74,22 @@ include('../functions/get-date.php');
             </div>
             <div class="col-sm-8" style="overflow-y:auto; height: 100%;">
             <div class="scrollable-right">
-
+            <form method="post"> 
             <div class="row bg-light">
             <div class="col-sm-12 text-center" >
-                    <form method="post" style="display: inline-block; width:75%;">
+            
+                    <div style="display: inline-block; width:75%;">
                         <div class="input-group m-3">
                             <input type="text" class="form-control rounded-pill" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
                             <button type="submit" name="capSearch" value="SEARCH" class="btn btn-primary rounded-pill text-light bg-dark border-none" style="border:none;">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
-                    </form>
+</div>
                 </div>
                 </div>
 
-                <form method="post"> <!-- Date filter -->
+                <!-- Date filter -->
                 <div class="row bg-light">
                     <div class="col-sm-6">
                         <div class="form-group">
