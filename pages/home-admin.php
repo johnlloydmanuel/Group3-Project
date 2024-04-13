@@ -126,7 +126,7 @@ include('../functions/type.php');
             </form>
         </div>
 
-        <div class="row">
+        <div class="row mt-3">
             <?php if (count($capstones) == 0): ?>
                 <div class="col-12 text-center">
                     <div class="h5">
@@ -142,7 +142,7 @@ include('../functions/type.php');
                   foreach($searchCapstone as $capstone): 
                         $pdf_file = $capstone['pdf_file'];
                     ?>
-                        <div class="col-md-4 mb-4">
+                        <div class="col-sm-4 mb-4">
                             <div class="card bg-light h-100" onclick="openViewModal('<?php echo $capstone['title']; ?>', '<?php echo $capstone['author']; ?>', '<?php echo $capstone['date_published']; ?>', '<?php echo $capstone['abstract']; ?>',event)"> <!-- Added h-100 class to ensure all cards have the same height -->
                                 <div class="card-body d-flex flex-column"> <!-- Added flex-column class to align content vertically -->
                                     <label for="title" class="font-weight-bold">Title</label>
