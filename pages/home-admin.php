@@ -90,12 +90,6 @@ include('../functions/get-date.php');
                 </div>
 
                 <form method="post"> <!-- Date filter -->
-                <div class="input-group m-3">
-                            <input type="text" class="form-control rounded-pill" id="capSearch" placeholder="Search" name="forSearch" value="<?php echo (isset($searchVal))? $searchVal: null;?>">
-                            <button type="submit" name="capSearch" value="SEARCH" class="btn btn-primary rounded-pill text-light bg-dark border-none" style="border:none;">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
                 <div class="row bg-light">
                     <div class="col-sm-6">
                         <div class="form-group">
