@@ -5,6 +5,7 @@ include('../functions/admin/add-admin.php');
 include('../functions/admin/edit-admin.php');
 include('../functions/admin/delete-admin.php');
 include('../functions/type.php');
+include('../functions/get-date.php');
 ?>
 
 
@@ -88,18 +89,18 @@ include('../functions/type.php');
                 </div>
                 </div>
 
-                <form action="" method="GET"> <!-- Date filter -->
+                <form method="post"> <!-- Date filter -->
                 <div class="row bg-light">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>From</label>
-                            <input type="date" name="from_date" class="form-control">
+                            <input type="date" name="from_date" class="form-control" value="<?php echo (isset($fromdate))? $fromdate: null;?>">
                         </div>
                         </div>
                         <div class="col-sm-6">
                         <div class="form-group">
                             <label>To</label>
-                            <input type="date" name="to_date" class="form-control">
+                            <input type="date" name="to_date" class="form-control" value="<?php echo (isset($todate))? $todate: null;?>">
                         </div>
                         </div> 
                 </div>
