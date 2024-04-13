@@ -40,7 +40,7 @@ if(isset($_POST["btn-login"])){
 				
 				$_SESSION["id"] = $row["id"];
 				
-				header("location:./pages/home-admin.php");
+				header("location:/main-forLogin/Group3-Project/pages/home-admin.php");
 				exit();
 			} else if(password_verify($password, $row["password"]) && $row["accountType"] == 'student'){
                 $_SESSION["id"] = $row["id"];
