@@ -23,7 +23,7 @@ if(isset($_POST["btn-login"])){
     else {
 		$myRoot = $_SERVER["DOCUMENT_ROOT"];
 
-		require($myRoot."/main-forLogin/Group3-Project/functions/connection/dbconn.php");
+		require($myRoot."/Group3-Project/functions/connection/dbconn.php");
 		
 		$sql = "SELECT id,email,password, accountType FROM tbl_register WHERE email = :email";
 		
@@ -40,7 +40,7 @@ if(isset($_POST["btn-login"])){
 				
 				$_SESSION["id"] = $row["id"];
 				
-				header("location:/main-forLogin/Group3-Project/pages/home-admin.php");
+				header("location:/Group3-Project/pages/home-admin.php");
 				exit();
 			} else if(password_verify($password, $row["password"]) && $row["accountType"] == 'student'){
                 $_SESSION["id"] = $row["id"];
