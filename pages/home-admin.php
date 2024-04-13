@@ -122,7 +122,11 @@ include('../functions/type.php');
                     <?php 
                 endforeach; 
             }else{
-                echo 'no record found';
+                echo "<div class='col-12 text-center'>
+                    <div class='h5'>
+                            No record found
+                        </div>
+                    </div>";
             }
                 ?>
                     <?php endif;?>

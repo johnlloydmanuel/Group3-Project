@@ -20,7 +20,7 @@ echo(password_hash("1234567", PASSWORD_BCRYPT));
         <div class="flip-card-inner">
             <div class="box-login">
                 <ul>
-                    <form action="/main-forLogin/Group3-Project/functions/verify.php" method="post">
+                    <form action="../functions/verify.php" method="post">
                         <h1>LOGIN</h1>
                         <div class="email-login">
                             <input class="inpt" type="email" name="email" id="" placeholder="Email " required>

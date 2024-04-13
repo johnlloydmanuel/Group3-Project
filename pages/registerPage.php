@@ -16,7 +16,7 @@
         <div class="flip-card-inner">
             <div class="box-login">
                 <ul>
-                    <form action="" method="get">
+                    <form action="../functions/verify.php" method="get">
                         <h1>LOGIN</h1>
                         <div class="email-login">
                             <input class="inpt" type="email" name="email" id="" placeholder="Email " required>
@@ -44,7 +44,7 @@
 
             <div class="box-signup">
                 <ul>
-                    <form action="register.php" method="POST">
+                    <form action="../functions/register.php" method="POST">
                         <input type="hidden" name="action" value="add">
                         <h1>SIGN UP</h1>
                         <div class="user-signup">
