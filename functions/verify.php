@@ -12,7 +12,7 @@ if(isset($_POST["btn-login"])){
 	$password = $_POST["password"];
 	
 	
-    if(strlen($password) < 8){
+    if(strlen($password) < 4){  //change to 8 after testing
 		echo "
         <script type=\"text/javascript\">
             alert('Password not match');
@@ -40,7 +40,7 @@ if(isset($_POST["btn-login"])){
 				
 				$_SESSION["id"] = $row["id"];
 				
-				header("location:./pages/home-admin.php");
+				header("location:/main-forLogin/Group3-Project/pages/home-admin.php");
 				exit();
 			} else if(password_verify($password, $row["password"]) && $row["accountType"] == 'student'){
                 $_SESSION["id"] = $row["id"];
