@@ -1,5 +1,5 @@
 <?php
-include('../functions/connection/dbconn.php');
+include($_SERVER["DOCUMENT_ROOT"].'/Group3-Project/functions/connection/dbconn.php');
 
 $stmt = $conn->prepare("SELECT * FROM tblcapstone WHERE id=:edit_id");
 $stmt->bindParam(':edit_id', $edit_id);
@@ -25,7 +25,7 @@ if(isset($_POST['submit']) && isset($_POST['action']) && $_POST['action'] === 'e
 
     try {
         $stmt->execute();
-        header("Location: ../pages/home-admin.php");
+        header("Location: /Group3-Project/pages/home-admin.php");
         exit;
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
