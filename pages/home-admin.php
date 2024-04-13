@@ -88,7 +88,7 @@ include('../functions/type.php');
                 </div>
                 </div>
 
-                <form action="" method="GET">
+                <form action="" method="GET"> <!-- Date filter -->
                 <div class="row bg-light">
                     <div class="col-sm-6">
                         <div class="form-group">
