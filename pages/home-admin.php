@@ -31,7 +31,7 @@ include('../functions/type.php');
             <a href="home-admin.php" class="nav-link" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-house-fill h3 text-light"></i>
-                    <label class="text-light ml-2">Home</label>
+                    <label class="text-light ml-2">Bahay</label>
                 </div>
             </a>
         </li>
